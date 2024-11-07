@@ -1,0 +1,148 @@
+Sure! Below is a structured Python project that visualizes the Bubble Sort algorithm using a graphical interface. The project will utilize the `matplotlib` library for visualization and `numpy` for generating random numbers.
+
+### Project Structure
+
+```
+bubble_sort_visualization/
+│
+├── bubble_sort.py          # Contains the Bubble Sort implementation
+├── visualizer.py           # Contains the visualization logic
+├── main.py                 # Entry point of the application
+├── requirements.txt        # List of dependencies
+└── README.md               # Project documentation
+```
+
+### 1. `bubble_sort.py`
+
+This file contains the implementation of the Bubble Sort algorithm.
+
+```python
+# bubble_sort.py
+
+def bubble_sort(arr, visualize_callback):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]  # Swap
+                visualize_callback(arr)  # Call the visualization callback
+    return arr
+```
+
+### 2. `visualizer.py`
+
+This file handles the visualization of the sorting process.
+
+```python
+# visualizer.py
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+class Visualizer:
+    def __init__(self, arr):
+        self.arr = arr
+        self.fig, self.ax = plt.subplots()
+        self.bar_container = self.ax.bar(range(len(arr)), arr, color='blue')
+        self.ax.set_ylim(0, max(arr) + 1)
+        plt.ion()  # Turn on interactive mode
+        plt.show()
+
+    def update(self, arr):
+        for bar, height in zip(self.bar_container, arr):
+            bar.set_height(height)
+        plt.pause(0.1)  # Pause to create an animation effect
+```
+
+### 3. `main.py`
+
+This is the entry point of the application.
+
+```python
+# main.py
+
+import numpy as np
+from bubble_sort import bubble_sort
+from visualizer import Visualizer
+
+def main():
+    # Generate 30 random numbers
+    arr = np.random.randint(1, 100, size=30).tolist()
+    print("Initial array:", arr)
+
+    # Create a visualizer instance
+    visualizer = Visualizer(arr)
+
+    # Sort the array and visualize the process
+    bubble_sort(arr, visualizer.update)
+
+    print("Sorted array:", arr)
+    plt.ioff()  # Turn off interactive mode
+    plt.show()  # Show the final plot
+
+if __name__ == "__main__":
+    main()
+```
+
+### 4. `requirements.txt`
+
+This file lists the dependencies required for the project.
+
+```
+matplotlib
+numpy
+```
+
+### 5. `README.md`
+
+This file provides documentation for the project.
+
+```markdown
+# Bubble Sort Visualization
+
+This project visualizes the Bubble Sort algorithm using a graphical interface. It generates an array of 30 random numbers and sorts them while displaying the process.
+
+## Requirements
+
+- Python 3.x
+- `matplotlib`
+- `numpy`
+
+## Installation
+
+1. Clone the repository:
+   ```
+   git clone <repository-url>
+   cd bubble_sort_visualization
+   ```
+
+2. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+Run the main script to visualize the Bubble Sort process:
+```
+python main.py
+```
+
+## License
+
+This project is licensed under the MIT License.
+```
+
+### Instructions to Run the Project
+
+1. Make sure you have Python installed on your machine.
+2. Install the required libraries by running:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Run the project using:
+   ```bash
+   python main.py
+   ```
+
+This will generate a random array of 30 numbers and visualize the Bubble Sort process. Enjoy visualizing the sorting algorithm!
