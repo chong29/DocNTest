@@ -33,6 +33,7 @@ def save_test_cases_to_excel(test_cases: str, file_path: str):
 
     # 将 DataFrame 保存为 Excel 文件
     df.to_excel(file_path, index=False)
+    print("Saved to", file_path)
 
 
 # 点击确认按钮的回调函数
